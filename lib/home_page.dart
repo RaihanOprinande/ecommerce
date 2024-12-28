@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert'; // Untuk mengelola JSON
 import 'package:http/http.dart' as http;
 
+import 'Detail_Product_Page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -21,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     try {
       print("Fetching products from the server...");
       final response =
-      await http.get(Uri.parse('http://192.168.200.36:3000/products'));
+      await http.get(Uri.parse('http://172.21.240.1:3000/products'));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -107,22 +109,10 @@ class _HomePageState extends State<HomePage> {
                   size: 30.0,
                 ),
                 onTap: () {
-                  // Navigasi ke halaman detail
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: Text('Coming Soon'),
-                        ),
-                        body: Center(
-                          child: Text(
-                            'This product will be available soon!',
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
+                      builder: (context) => DetailProdukPage(productId: product['id']),
                     ),
                   );
                 },
